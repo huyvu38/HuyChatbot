@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Card, Button } from "@radix-ui/themes";
-import * as ScrollArea from "@radix-ui/react-scroll-area";
 import UserImage from "../assets/user.png";
 import RobotImage from "../assets/robot.png";
 import SendImage from "../assets/send.png";
@@ -8,7 +7,7 @@ import "../styles/styles.css";
 
 export default function Chatbot() {
     const [messages, setMessages] = useState([
-        { sender: "bot", text: "Hi", time: new Date() },
+        { sender: "bot", text: "Hi", time: new Date() }
     ]);
     const [input, setInput] = useState("");
     const scrollRef = useRef(null);
@@ -27,53 +26,43 @@ export default function Chatbot() {
     };
 
     useEffect(() => {
-        const viewport = scrollRef.current;
-        if (viewport) {
-            viewport.scrollTop = viewport.scrollHeight;
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
     }, [messages]);
 
     return (
         <div className="chat-container">
             <Card className="chat-box">
-                <ScrollArea.Root className="scroll-area">
-                    <ScrollArea.Viewport className="scroll-viewport" ref={scrollRef}>
-                        <div className="message-box">
-                            {messages.map((msg, index) => {
-                                const avatar = msg.sender === "user" ? UserImage : RobotImage;
-                                const messageClass =
-                                    msg.sender === "user" ? "user-message" : "bot-message";
-                                const avatarClass =
-                                    msg.sender === "user" ? "avatar-user" : "avatar-chatbot";
-                                const containerClass =
-                                    msg.sender === "user"
-                                        ? "message-container user-container"
-                                        : "message-container bot-container";
+                <div className="message-box scrollable" ref={scrollRef}>
+                    {messages.map((msg, index) => {
+                        const avatar = msg.sender === "user" ? UserImage : RobotImage;
+                        const messageClass = msg.sender === "user" ? "user-message" : "bot-message";
+                        const avatarClass = msg.sender === "user" ? "avatar-user" : "avatar-chatbot";
+                        const containerClass = msg.sender === "user"
+                            ? "message-container user-container"
+                            : "message-container bot-container";
 
-                                return (
-                                    <div key={index} className={containerClass}>
-                                        <img
-                                            src={avatar}
-                                            alt={msg.sender}
-                                            className={`avatar ${avatarClass}`}
-                                        />
-                                        <div className={`message ${messageClass}`}>
-                                            <div>{msg.text}</div>
-                                            <div>
-                                                {msg.time.toLocaleTimeString([], {
-                                                    hour: "2-digit",
-                                                    minute: "2-digit",
-                                                })}
-                                            </div>
-                                        </div>
+                        return (
+                            <div key={index} className={containerClass}>
+                                <img
+                                    src={avatar}
+                                    alt={msg.sender}
+                                    className={`avatar ${avatarClass}`}
+                                />
+                                <div className={`message ${messageClass}`}>
+                                    <div>{msg.text}</div>
+                                    <div>
+                                        {msg.time.toLocaleTimeString([], {
+                                            hour: "2-digit",
+                                            minute: "2-digit",
+                                        })}
                                     </div>
-                                );
-                            })}
-                        </div>
-                    </ScrollArea.Viewport>
-                    <ScrollArea.Scrollbar orientation="vertical" />
-                    <ScrollArea.Corner />
-                </ScrollArea.Root>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
 
                 <div className="input-container">
                     <input

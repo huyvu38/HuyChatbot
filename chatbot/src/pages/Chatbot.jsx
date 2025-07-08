@@ -3,6 +3,7 @@ import { Card, Button } from "@radix-ui/themes";
 import UserImage from "../assets/user.png";
 import RobotImage from "../assets/robot.png";
 import SendImage from "../assets/send.png";
+import Resume from "../assets/resume.pdf";
 import "../styles/styles.css";
 
 export default function Chatbot() {
@@ -65,6 +66,13 @@ export default function Chatbot() {
                 </div>
 
                 <div className="input-container">
+                    <Button
+                        onClick={() => window.open(Resume, "_blank")}
+                        className="button"
+                    >
+                        Reference Huy's Resume
+                    </Button>
+
                     <input
                         className="chat-input"
                         value={input}
@@ -73,7 +81,7 @@ export default function Chatbot() {
                         placeholder="Ask anything"
                     />
                     <Button onClick={sendMessage} className="send-button">
-                        <img src={SendImage} alt="Send" className="send-image" />
+                        <img src={SendImage} alt="Send" className="send-image"/>
                     </Button>
                 </div>
             </Card>

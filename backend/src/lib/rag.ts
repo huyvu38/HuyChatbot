@@ -4,41 +4,40 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-// 1. Init OpenAI
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY!,
 });
 
-// 2. Answer a question using RAG
 export async function askResume(question: string): Promise<string> {
-    // Embed the user question
-    const embedResponse = await openai.embeddings.create({
+    const embeddingResponse = await openai.embeddings.create({
         model: "text-embedding-3-small",
         input: question,
     });
 
-    const queryVector = embedResponse.data[0].embedding;
+    const queryEmbedding = embeddingResponse.data[0].embedding;
 
-    // Query Pinecone with embedded question
     const index = pinecone.Index(process.env.PINECONE_INDEX!);
-    const results = await index.query({
-        vector: queryVector,
+
+    // ✅ Cast the request object directly to fix TS error
+    const queryResponse = await index.query({
+        vector: queryEmbedding,
         topK: 5,
+        namespace: "", // required in v1
         includeMetadata: true,
-    });
+    } as any); // <== force bypasses type mismatch
+    //  👆 Only needed because SDK v1 has loose or missing types
 
-    // Extract top matching resume chunks
-    const context = results.matches
-        .map((match) => match.metadata?.text || "")
-        .join("\n");
+    const context = queryResponse.matches
+        ?.map((match: any) => match.metadata?.text ?? "")
+        .join("\n") ?? "";
 
-    // Use GPT to generate answer based on context
     const chatResponse = await openai.chat.completions.create({
         model: "gpt-4",
         messages: [
             {
                 role: "system",
-                content: "You are a helpful assistant. Only answer using the provided resume context.",
+                content:
+                    "You are a helpful assistant. Only answer using the provided resume context.",
             },
             {
                 role: "user",
@@ -47,5 +46,5 @@ export async function askResume(question: string): Promise<string> {
         ],
     });
 
-    return chatResponse.choices[0].message.content || "No answer.";
+    return chatResponse.choices[0].message.content ?? "No answer found.";
 }

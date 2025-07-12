@@ -18,14 +18,12 @@ export async function askResume(question: string): Promise<string> {
 
     const index = pinecone.Index(process.env.PINECONE_INDEX!);
 
-    // ✅ Cast the request object directly to fix TS error
     const queryResponse = await index.query({
         vector: queryEmbedding,
         topK: 5,
         namespace: "", // required in v1
         includeMetadata: true,
-    } as any); // <== force bypasses type mismatch
-    //  👆 Only needed because SDK v1 has loose or missing types
+    } as any);
 
     const context = queryResponse.matches
         ?.map((match: any) => match.metadata?.text ?? "")
@@ -45,6 +43,5 @@ export async function askResume(question: string): Promise<string> {
             },
         ],
     });
-
     return chatResponse.choices[0].message.content ?? "No answer found.";
 }

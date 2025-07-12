@@ -13,7 +13,6 @@ const resumeChunks = [
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY!,
 });
-
 async function embedAndUpsert() {
     const response = await openai.embeddings.create({
         model: "text-embedding-3-small",
@@ -28,5 +27,4 @@ async function embedAndUpsert() {
 
     console.log("✅ Resume chunks embedded and uploaded to Pinecone.");
 }
-
 embedAndUpsert().catch(console.error);

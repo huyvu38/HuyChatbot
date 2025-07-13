@@ -1,11 +1,9 @@
-import {Pinecone} from "@pinecone-database/pinecone"; // Import Pinecone, not PineconeClient
+import {Pinecone} from "@pinecone-database/pinecone";
 import * as dotenv from "dotenv";
 
 dotenv.config();
-
-// The new way to initialize the client
 const pinecone = new Pinecone({
     apiKey: process.env.PINECONE_API_KEY!,
 });
-
+const index = pinecone.index('quickstart');
 export { pinecone };

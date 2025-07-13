@@ -16,12 +16,10 @@ export async function askResume(question: string): Promise<string> {
 
     const queryEmbedding = embeddingResponse.data[0].embedding;
 
-    const index = pinecone.Index(process.env.PINECONE_INDEX!);
-
+    const index = pinecone.index(process.env.PINECONE_INDEX!);
     const queryResponse = await index.query({
         vector: queryEmbedding,
         topK: 5,
-        namespace: "", // required in v1
         includeMetadata: true,
     } as any);
 

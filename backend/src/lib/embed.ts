@@ -5,7 +5,7 @@ dotenv.config();
 
 const resumeChunks = [
     "Huy Vu is a Computer Science undergraduate at Purdue University...",
-    "Worked as a software engineer intern at Hyperlogy...",
+    "Worked as a software engineer intern at Hyperlogy in 2024",
     "Built AI chatbot using OpenAI, integrated with Node.js and Express...",
     "Skills include JavaScript, Python, TypeScript, and more...",
 ];

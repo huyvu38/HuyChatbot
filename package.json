@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@pinecone-database/pinecone": "^6.1.1",
     "@radix-ui/react-scroll-area": "^1.2.9"
   }
 }

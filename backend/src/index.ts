@@ -3,15 +3,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 import {askResume} from "./lib/rag";
 
-// Load environment variables
 dotenv.config();
 
 const app = express();
 const PORT = 8000;
 
-// Middleware
-app.use(cors()); // Allow frontend requests
-app.use(express.json()); // Parse JSON bodies
+app.use(cors());
+app.use(express.json());
 
 // Routes
 app.post("/api/chat", async (req, res) => {
@@ -30,7 +28,14 @@ app.post("/api/chat", async (req, res) => {
     }
 });
 
-// Start server
+// ✅ Hardcoded test question
+(async () => {
+    const testQuestion = "What is Huy Vu's experience at Hyperlogy?";
+    console.log("🧪 Testing askResume()...");
+    const answer = await askResume(testQuestion);
+    console.log("💬 Answer:", answer);
+})();
+
 app.listen(PORT, () => {
     console.log(`✅ Server running at http://localhost:${PORT}`);
 });

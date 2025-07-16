@@ -7,7 +7,6 @@ dotenv.config();
 
 const app = express();
 const PORT = 8000;
-
 app.use(cors());
 app.use(express.json());
 
@@ -27,14 +26,6 @@ app.post("/api/chat", async (req, res) => {
         res.status(500).json({error: "Failed to generate response."});
     }
 });
-
-// ✅ Hardcoded test question
-(async () => {
-    const testQuestion = "What is Huy Vu's experience at Hyperlogy?";
-    console.log("🧪 Testing askResume()...");
-    const answer = await askResume(testQuestion);
-    console.log("💬 Answer:", answer);
-})();
 
 app.listen(PORT, () => {
     console.log(`✅ Server running at http://localhost:${PORT}`);

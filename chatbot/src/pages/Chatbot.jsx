@@ -1,10 +1,23 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Card, Button } from "@radix-ui/themes";
+import React, {useEffect, useRef, useState} from "react";
+import {Button, Card} from "@radix-ui/themes";
 import UserImage from "../assets/user.png";
 import RobotImage from "../assets/robot.png";
 import SendImage from "../assets/send.png";
 import Resume from "../assets/resume.pdf";
 import "../styles/styles.css";
+
+async function askQuestion(question){
+    const res = await fetch("http://localhost:8000/api/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ question }),
+    });
+
+    const data = await res.json();
+    return data.answer;
+}
 
 export default function Chatbot() {
     const [messages, setMessages] = useState([
@@ -19,11 +32,11 @@ export default function Chatbot() {
         const userMessage = { sender: "user", text: input, time: new Date() };
         setMessages((prev) => [...prev, userMessage]);
         setInput("");
-
+        const answer = askQuestion(input);
         setTimeout(() => {
-            const botMessage = { sender: "bot", text: "Hi!", time: new Date() };
-            setMessages((prev) => [...prev, botMessage]);
-        }, 500);
+        const botMessage = { sender: "bot", text: answer, time: new Date() };
+        setMessages((prev) => [...prev, botMessage]);
+    }, 1000);
     };
 
     useEffect(() => {

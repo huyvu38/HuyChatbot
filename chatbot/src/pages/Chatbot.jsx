@@ -16,7 +16,7 @@ async function askQuestion(question){
     });
 
     const data = await res.json();
-    return data.answer;
+    return data.response;
 }
 
 export default function Chatbot() {
@@ -26,17 +26,16 @@ export default function Chatbot() {
     const [input, setInput] = useState("");
     const scrollRef = useRef(null);
 
-    const sendMessage = () => {
+    const sendMessage = async () => {
         if (!input.trim()) return;
 
         const userMessage = { sender: "user", text: input, time: new Date() };
         setMessages((prev) => [...prev, userMessage]);
         setInput("");
-        const answer = askQuestion(input);
-        setTimeout(() => {
+
+        const answer = await askQuestion(input);
         const botMessage = { sender: "bot", text: answer, time: new Date() };
         setMessages((prev) => [...prev, botMessage]);
-    }, 1000);
     };
 
     useEffect(() => {

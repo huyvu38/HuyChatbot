@@ -17,10 +17,10 @@ app.post("/api/chat", async (req, res) => {
     if (!question) {
         return res.status(400).json({error: "Missing question in request body."});
     }
-
     try {
         const answer = await askResume(question);
         res.json({response: answer});
+        console.log(answer);
     } catch (err) {
         console.error("❌ Error in /api/chat:", err);
         res.status(500).json({error: "Failed to generate response."});

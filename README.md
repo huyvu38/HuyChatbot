@@ -34,9 +34,69 @@ A full-stack AI chatbot application that answers questions based on information 
 
 ## 🧪 Local Development
 
-### 1. Clone the Project
+1.  **Clone the repository:**
 
 ```bash
 git clone https://github.com/huyvu38/HuyChatbot
-**bold text**
-__bold text__
+
+```
+
+2.  **Backend setup:**
+```bash
+cd backend
+npm install
+- Creat .env in /backend:
+OPENAI_API_KEY=your-openai-api-key
+PINECONE_API_KEY=your-pinecone-api-key
+PINECONE_INDEX=your-pinecone-index-name
+PORT=your-port-number
+- Start the server:
+npm run dev
+```
+
+3.  **Frontend setup:**
+```bash
+cd ..
+cd chatbot
+npm install
+- Start the server:
+npm run dev
+```
+
+## Project Structure
+huy_chatbot/
+├── backend/
+│   │  
+│   │── node_modules/
+│   │
+│   ├── src/
+│   │   ├── index.ts
+│   │   ├── lib/
+│   │   │   ├── embed.ts
+│   │   │   ├── pinecone.ts
+│   │   │   └── rag.ts
+│   └── .env
+├── frontend/
+│   │
+│   │── node_modules/
+│   │
+│   ├── src/
+│   │   ├── assets
+│   │   │   ├── resume.pdf
+│   │   │   ├── robot.png
+│   │   │   ├── send.png
+│   │   │   └── user.png
+│   │   ├── pages
+│   │   │   └── Chatbot.jsx
+│   │   ├── styles
+│   │   │   └── styles.css
+│   │   │
+│   │   │── App.jsx
+│   │   │
+│   │   │── main.jsx
+│   │   │
+│   ├── public/
+│   │
+|── prisma/
+|   └──  schema.prisma
+

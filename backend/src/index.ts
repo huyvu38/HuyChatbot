@@ -6,7 +6,7 @@ import {askResume} from "./lib/rag";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 
@@ -28,5 +28,5 @@ app.post("/api/chat", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`✅ Server running at http://localhost:${PORT}`);
+    console.log(`✅ Server running at ${PORT}`);
 });

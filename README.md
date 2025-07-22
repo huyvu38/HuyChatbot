@@ -64,39 +64,35 @@ npm run dev
 ```
 
 ## Project Structure
+```bash
 huy_chatbot/
-├── backend/
-│   │  
-│   │── node_modules/
-│   │
-│   ├── src/
-│   │   ├── index.ts
-│   │   ├── lib/
-│   │   │   ├── embed.ts
-│   │   │   ├── pinecone.ts
-│   │   │   └── rag.ts
-│   └── .env
-├── frontend/
-│   │
-│   │── node_modules/
-│   │
-│   ├── src/
-│   │   ├── assets
+├── backend/                  # Backend server built with Node.js & TypeScript
+│   ├── node_modules/         # Backend dependencies
+│   ├── src/                  # Source files
+│   │   ├── index.ts          # Entry point for the backend server
+│   │   └── lib/              # Core logic for embeddings & RAG
+│   │       ├── embed.ts      # Embeds resume chunks into Pinecone
+│   │       ├── pinecone.ts   # Pinecone initialization
+│   │       └── rag.ts        # RAG logic using OpenAI + Pinecone
+│   └── .env                  # Environment variables for backend
+│
+├── frontend/                 # Frontend app built with React
+│   ├── node_modules/         # Frontend dependencies
+│   ├── public/               # Public assets
+│   ├── src/                  # Frontend source files
+│   │   ├── assets/           # Images and static files
 │   │   │   ├── resume.pdf
 │   │   │   ├── robot.png
 │   │   │   ├── send.png
 │   │   │   └── user.png
-│   │   ├── pages
-│   │   │   └── Chatbot.jsx
-│   │   ├── styles
+│   │   ├── pages/            # Page components
+│   │   │   └── Chatbot.jsx   # Chat interface
+│   │   ├── styles/           # CSS styles
 │   │   │   └── styles.css
-│   │   │
-│   │   │── App.jsx
-│   │   │
-│   │   │── main.jsx
-│   │   │
-│   ├── public/
-│   │
-|── prisma/
-|   └──  schema.prisma
+│   │   ├── App.jsx           # Main App component
+│   │   └── main.jsx          # Entry point for React
+│
+├── prisma/                   # Prisma ORM config
+│   └── schema.prisma         # Prisma schema file
+```
 
